@@ -1,0 +1,7 @@
+openai-whisper
+torch
+numpy
+ffmpeg-python
+pysrt
+deep-translator
+requests
