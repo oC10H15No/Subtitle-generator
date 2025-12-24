@@ -21,6 +21,10 @@ def main():
     parser.add_argument('--translate', action='store_true', help='Enable translation')
     parser.add_argument('--target-lang', default=None, help='Target language for translation (e.g. zh-CN)')
     
+    # Diarization arguments
+    parser.add_argument('--diarize', action='store_true', help='Enable speaker diarization')
+    parser.add_argument('--hf-token', default=None, help='Hugging Face Token for Pyannote')
+
     args = parser.parse_args()
 
     # Load config
@@ -38,6 +42,11 @@ def main():
         config.translation.enabled = True
     if args.target_lang:
         config.translation.target_language = args.target_lang
+    
+    if args.diarize:
+        config.diarization.enabled = True
+    if args.hf_token:
+        config.diarization.hf_token = args.hf_token
 
 
     # Initialize and run pipeline

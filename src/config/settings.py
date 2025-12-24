@@ -15,15 +15,23 @@ class TranslationConfig:
     bilingual: bool = False
 
 @dataclass
+class DiarizationConfig:
+    enabled: bool = False
+    hf_token: str = ''
+
+@dataclass
 class AppConfig:
     language: str = 'auto'
     model_name: str = 'medium'
     device: str = 'auto'
     translation: TranslationConfig = None
+    diarization: DiarizationConfig = None
 
     def __post_init__(self):
         if self.translation is None:
             self.translation = TranslationConfig()
+        if self.diarization is None:
+            self.diarization = DiarizationConfig()
 
 class ConfigManager:
     def __init__(self, settings_path: str = 'settings.ini'):
@@ -58,6 +66,12 @@ class ConfigManager:
             self.config.translation.model = trans.get('Model', '')
             self.config.translation.bilingual = trans.getboolean('Bilingual', False)
 
+        # Load DIARIZATION section
+        if 'DIARIZATION' in parser:
+            diar = parser['DIARIZATION']
+            self.config.diarization.enabled = diar.getboolean('Enable', False)
+            self.config.diarization.hf_token = diar.get('HFToken', '')
+
         # Save back to ensure defaults exist
         self.save_config()
 
@@ -78,6 +92,11 @@ class ConfigManager:
             'APIUrl': self.config.translation.api_url,
             'Model': self.config.translation.model,
             'Bilingual': str(self.config.translation.bilingual)
+        }
+
+        parser['DIARIZATION'] = {
+            'Enable': str(self.config.diarization.enabled),
+            'HFToken': self.config.diarization.hf_token
         }
 
         try:

@@ -1,5 +1,4 @@
 import os
-import math
 from typing import List, Dict, Any
 from pydub import AudioSegment
 import tempfile
@@ -80,6 +79,13 @@ class ChunkedASR:
                     
                     segment['start'] = seg_start
                     segment['end'] = seg_end
+                    
+                    # Adjust word timestamps if available
+                    if 'words' in segment:
+                        for word in segment['words']:
+                            word['start'] += offset_sec
+                            word['end'] += offset_sec
+                            
                     all_segments.append(segment)
                     
             finally:
