@@ -20,7 +20,18 @@ A powerful and flexible tool for generating subtitles from video and audio files
 
 *   **Python 3.10** or higher.
 *   **FFmpeg**: Must be installed and added to your system's PATH.
-    *   *Ubuntu/Debian*: `sudo apt install ffmpeg`
+    *   *Ubuntu/Debian*: 
+    ```bash
+    sudo apt install ffmpeg
+    ```
+    *  *Arch Linux*: 
+    ```bash
+    sudo pacman -S ffmpeg
+    ```
+    *   *macOS*: 
+    ```bash
+    brew install ffmpeg
+    ```
     *   *Windows*: Download from [ffmpeg.org](https://ffmpeg.org/download.html) and add `bin` folder to Path.
 *   **NVIDIA GPU** (Optional but recommended): Significantly faster processing for both Whisper and pyannote. Requires CUDA Toolkit installed.
 *   **Hugging Face Token** (Required for diarization): 
@@ -110,23 +121,23 @@ You can override configuration settings using CLI arguments:
 ├── run.py                  # Entry point of the application
 ├── settings.ini            # Configuration file
 ├── requirements.txt        # Python dependencies
-├── src/
-│   ├── cli/                # Command Line Interface logic
-│   │   └── main.py         # CLI argument parsing
-│   ├── config/             # Configuration management
-│   │   └── settings.py     # Settings loader
-│   ├── core/               # Core logic
-│   │   ├── engine.py       # Whisper ASR engine
-│   │   ├── chunked_asr.py  # Long audio chunking
-│   │   ├── diarizer.py     # Speaker diarization
-│   │   └── pipeline.py     # Main processing pipeline
-│   ├── translation/        # Translation providers
-│   │   ├── base.py         # Base translator interface
-│   │   ├── factory.py      # Translator factory
-│   │   └── providers.py    # Google, DeepL, LLM translators
-│   └── utils/              # Utility functions
-│       └── formatter.py    # Subtitle formatting (SRT, VTT, JSON)
-└── test/                   # Test files and examples
+└── src/
+    ├── cli/                # Command Line Interface logic
+    │   └── main.py         # CLI argument parsing
+    ├── config/             # Configuration management
+    │   └── settings.py     # Settings loader
+    ├── core/               # Core logic
+    │   ├── engine.py       # Whisper ASR engine
+    │   ├── chunked_asr.py  # Long audio chunking
+    │   ├── diarizer.py     # Speaker diarization
+    │   └── pipeline.py     # Main processing pipeline
+    ├── translation/        # Translation providers
+    │   ├── base.py         # Base translator interface
+    │   ├── factory.py      # Translator factory
+    │   └── providers.py    # Google, DeepL, LLM translators
+    └── utils/              # Utility functions
+        └── formatter.py    # Subtitle formatting (SRT, VTT, JSON)
+
 ```
 
 ## How It Works
